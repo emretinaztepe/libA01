@@ -29,10 +29,8 @@ export {process};
  * A01 Format Metadata
  * 
  * Format: A01
- * Method: Standard|Off-Network
+ * Type: Standard|Off-Network
  * ID: 09a2a3d1-d6f9-40b3-a1a9-5ae2f75bbf74
- * Device:
- *   Name: EmrePC
  * Tool: 
  *   Name: AIR
  *   Version: 1.5.2
