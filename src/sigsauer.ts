@@ -16,7 +16,7 @@ async function process(file:File, cb:Function) {
 }
 
 function calculatePassword(): string {
-  return "xxxxxxxxxxxxxxxxxxxxxx";
+  return "password here";
 }
 
 function extractMetaData(file:File): string {

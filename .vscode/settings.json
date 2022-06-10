@@ -1,10 +1,4 @@
 {
-  "gopls": {
-    "build.env": {
-      "GOOS": "js",
-      "GOARCH": "wasm"
-    }
-  },
   "files.exclude": {
     "**/node_modules/": true
   },
