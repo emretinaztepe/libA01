@@ -1,4 +1,4 @@
-import {ZipReader, BlobReader, ZipWriter} from "@zip.js/zip.js";
+import {ZipReader, BlobReader} from "@zip.js/zip.js";
 
 async function process(file:File, cb:Function) {
   let blob:Blob = file.slice(0, 100);
