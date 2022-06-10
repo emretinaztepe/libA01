@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>SigSauer Playground</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Scripts -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://daemonite.github.io/material/js/material.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+        <link rel="stylesheet" type="text/css" href="https://daemonite.github.io/material/css/material.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <div class="container">
+            <div class="row my-4">
+                <div class="col">
+                    <div class="jumbotron">
+                        <h1>SigSauer Playground</h1>
+                        <p class="mt-5">Drag and Drop EPPC files below</p>
+                        <form action="/" class="dropzone dz-clickable" id="my-dropzone">
+                            <div class="dz-message d-flex flex-column">
+                                <i class="material-icons text-info">cloud_upload</i>
+                                <p class="text-info">Drag &amp; Drop OR Click</p>
+                            </div>
+                        </form>
+                        <div>
+                            <div id="datatable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SigSauer -->
+        <script type="text/javascript" src="sigsauer.js"></script>
+        <script type="text/javascript">
+            // Configure Dropzone
+            const dropZone = document.getElementById('my-dropzone');
+            if (dropZone) {
+                dropZone.addEventListener('dragover', onDragOver, false);
+                dropZone.addEventListener('drop', onDnD, false);
+            } else {
+                console.error("Invalid element id provided");
+            }
+
+            // Drag and Drop Handler
+            async function onDnD(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                let files = e.dataTransfer.files; // FileList object
+                
+                let file = null;
+                let data = [];
+                for (let i = 0; file = files[i]; i++) {
+                    await sigsauer.process(file, function(name, size, password) {
+                        data.push([name, size, password]);
+                    });
+                }
+
+                // Render DataTable
+                var datatable = new gridjs.Grid({
+                    columns: ["FileName", "Evidence Count", "Password"],
+                    data: data,
+                });
+                datatable.render(document.getElementById("datatable"));
+            }
+
+            // Drag Over Handler
+            function onDragOver(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+            }
+        </script>
+    </body>
+</html>
