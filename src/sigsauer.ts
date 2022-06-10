@@ -24,3 +24,13 @@ function extractMetaData(file:File): string {
 }
 
 export {process};
+
+/**
+ * Sample Metadata
+ * 
+ * Format: A01
+ * ID: 09a2a3d1-d6f9-40b3-a1a9-5ae2f75bbf74
+ * CreatedAt: 2020-04-17T14:37:00.000Z
+ * OffNetwork: false
+ * PasswordProtected: false
+ */
