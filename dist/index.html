@@ -38,8 +38,8 @@
                 </div>
             </div>
         </div>
-        <!-- SigSauer -->
-        <script type="text/javascript" src="sigsauer.js"></script>
+        <!-- A01 -->
+        <script type="text/javascript" src="libA01.js"></script>
         <script type="text/javascript">
             // Configure Dropzone
             const dropZone = document.getElementById('my-dropzone');
@@ -58,19 +58,27 @@
                 let files = e.dataTransfer.files; // FileList object
                 
                 let file = null;
-                let data = [];
+                let data = [['','','']];
                 for (let i = 0; file = files[i]; i++) {
-                    await sigsauer.process(file, function(name, size, password) {
-                        data.push([name, size, password]);
-                    });
+                    let a01 = await libA01.open(file);
+                    
+                    console.dir(a01);
+                    
+                    await a01.readPPC((data) => {
+                        console.log('hoba' + data);
+                    }, 'DasPassword');
+
+                    data.push(['name', 'size', 'password']);
                 }
 
                 // Render DataTable
+                /*
                 var datatable = new gridjs.Grid({
                     columns: ["FileName", "Evidence Count", "Password"],
                     data: data,
                 });
-                datatable.render(document.getElementById("datatable"));
+                */
+                //datatable.render(document.getElementById("datatable"));
             }
 
             // Drag Over Handler

@@ -1,12 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, '/src/sigsauer.ts'),
+  entry: path.join(__dirname, '/src/main.ts'),
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'sigsauer.js',
-    library: 'sigsauer',
+    filename: 'libA01.js',
+    library: 'libA01',
     libraryTarget: 'umd',
     globalObject: 'this'
   },

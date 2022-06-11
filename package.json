@@ -1,21 +1,24 @@
 {
   "name": "@binalyze/sigsauer",
   "version": "1.0.0",
-  "main": "dist/sigsauer.js",
+  "main": "dist/a01.js",
   "author": "emre@binalyze.com",
   "license": "GPL-3.0-only",
   "private": true,
   "scripts": {
-    "build:ts": "tsc --build tsconfig.json",
+    "rimraf": "rm -rf ./dist/*.js && rm -rf ./dist/*.map && rm -rf ./dist/*.d.ts",
+    "build:ts": "yarn rimraf && tsc --build tsconfig.json",
     "build:webpack": "webpack --config webpack.config.js --mode production",
     "build": "yarn build:ts && yarn build:webpack",
     "serve": "yarn build && webpack-dev-server"
   },
   "dependencies": {
     "@zip.js/zip.js": "^2.4.15",
+    "js-yaml": "^4.1.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
     "@types/webpack": "^5.28.0",
     "@types/zip.js": "^2.0.29",
     "ts-loader": "^9.3.0",
