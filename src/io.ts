@@ -1,7 +1,7 @@
-export type OnData = (data: []) => void;
+type OnData = (data: []) => void;
 
 // @Implements<zip.Writer>
-export class Streamer {
+class Streamer {
     public size:number;
     public initialized:boolean;
     
@@ -25,3 +25,5 @@ export class Streamer {
     // @NotImplemented: We don't want to keep the data in memory
     public getData() {}
 }
+
+export {OnData, Streamer};
