@@ -1,5 +1,5 @@
-# SigSauer EPPC Decoder
-SigSauer is a PoC project for simplifying A01 processing.
+# Lib A01
+LibA01 is a PoC project for simplifying A01 processing.
 
 # How to run? 
 yarn install

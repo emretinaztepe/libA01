@@ -1,5 +1,5 @@
-declare type OnData = (data: []) => void;
-declare class PPCStream {
+export declare type OnData = (data: []) => void;
+export declare class Streamer {
     size: number;
     initialized: boolean;
     private onData;
@@ -8,4 +8,3 @@ declare class PPCStream {
     writeUint8Array(data: []): void;
     getData(): void;
 }
-export { PPCStream, OnData };

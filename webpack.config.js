@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, '/src/main.ts'),
+  entry: path.join(__dirname, '/src/libA01.ts'),
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -34,7 +34,7 @@ module.exports = {
   ],
   devServer: {
     port: 8080,
-    static: './dist',
+    static: ['./dist', './static'],
     liveReload: true,
     open: true,
   }
