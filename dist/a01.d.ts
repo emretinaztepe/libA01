@@ -1,26 +1,31 @@
-import * as PPC from "./ppc";
-export declare enum Type {
+import * as PPC from "./io";
+declare enum Type {
     Standard = "Standard",
-    OffNetwor = "Off-Network"
+    OffNetwork = "Off-Network"
 }
-export declare enum Encryption {
+declare enum Encryption {
     None = "None",
     AES256 = "AES-256"
 }
-export declare class A01 {
+declare class A01 {
     readonly Format: string;
     readonly Type: Type;
     readonly ID: string;
     readonly Tool: Tool;
     readonly Encryption: Encryption;
-    readonly Enumerator: any;
+    readonly PasswordProtected: boolean;
     private readonly reader;
-    constructor(type: Type, id: string, tool: Tool, encryption: Encryption, reader: Function);
+    private readonly logger;
+    constructor(type: Type, id: string, tool: Tool, encryption: Encryption, passwordProtected: boolean, reader: Function);
     StreamPPC(onData: PPC.OnData, password?: string): Promise<void>;
     IsEncrypted(): boolean;
+    IsOffNetwork(): boolean;
+    IsPasswordProtected(): boolean;
+    GeneratePassword(password: string): string;
 }
-export declare class Tool {
+declare class Tool {
     Name: string;
     Version: string;
     constructor(name: string, version: string);
 }
+export { A01, Tool, Type, Encryption };

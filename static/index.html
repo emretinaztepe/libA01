@@ -23,8 +23,8 @@
             <div class="row my-4">
                 <div class="col">
                     <div class="jumbotron">
-                        <h1>SigSauer Playground</h1>
-                        <p class="mt-5">Drag and Drop EPPC files below</p>
+                        <h1>A01 Playground</h1>
+                        <p class="mt-5">Drag and Drop files below</p>
                         <form action="/" class="dropzone dz-clickable" id="my-dropzone">
                             <div class="dz-message d-flex flex-column">
                                 <i class="material-icons text-info">cloud_upload</i>
@@ -49,6 +49,9 @@
             } else {
                 console.error("Invalid element id provided");
             }
+            
+            // Get an instance to A01 library
+            let lib = new libA01.createInstance();
 
             // Drag and Drop Handler
             async function onDnD(e) {
@@ -59,13 +62,17 @@
                 
                 let file = null;
                 for (let i = 0; file = files[i]; i++) {
-                    let a01 = await libA01.open(file);
+                    let a01 = await lib.open(file);
+                    console.log(a01);
                     
-                    console.dir(a01);
+                    let password = '';
+                    if (a01.IsPasswordProtected()) {
+                        password = prompt("Enter Password", "DasPassword");
+                    }
 
                     await a01.StreamPPC((data) => {
-                        console.log('hoba' + data);
-                    }, 'DasPassword');
+                        console.log('chunk receveid');
+                    }, password);
                 }
             }
 

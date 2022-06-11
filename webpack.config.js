@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, '/src/libA01.ts'),
+  entry: path.join(__dirname, '/src/main.ts'),
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
