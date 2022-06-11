@@ -1,7 +1,7 @@
 export type OnData = (data: []) => void;
 
-// @Implements<Writer> from zip.js
-export class Stream {
+// @Implements<zip.Writer>
+export class Streamer {
     public size:number;
     public initialized:boolean;
     
@@ -22,8 +22,6 @@ export class Stream {
         this.onData(data);
     }
 
-    // @NotImplemented 
-    // Left intentionally empty in order to prevent memory issues
-    // We don't need to keep the data in memory
+    // @NotImplemented: We don't want to keep the data in memory
     public getData() {}
 }

@@ -6,6 +6,7 @@ import * as A01 from "./a01";
 
 /**
  * Opens an AO1 file
+ * @async
  * @param file: File
  * @returns A01 | null
  */
@@ -82,14 +83,6 @@ function sanitizeMetadata(input:string): string {
     input = input.substring(0, input.length-1); 
   }
   return input;
-}
-
-function calculatePassword(): string {
-  return "password here";
-}
-
-function extractMetaData(file:File): string {
-  return "";
 }
 
 export {open};

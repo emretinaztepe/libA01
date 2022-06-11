@@ -29,8 +29,13 @@ export class A01 {
         this.reader = reader;
     }
 
-    public async readPPC(onData: PPC.OnData, password: string = '') {
-        await this.reader(new PPC.Stream(onData), password != '' ? {"password": password} : {});
+    public async StreamPPC(onData: PPC.OnData, password: string = '') {
+        //TODO(emre): generate password
+        await this.reader(new PPC.Streamer(onData), password != '' ? {"password": password} : {});
+    }
+
+    public IsEncrypted(): boolean {
+        return this.Encryption != Encryption.None;
     }
 }
 

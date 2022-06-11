@@ -58,27 +58,15 @@
                 let files = e.dataTransfer.files; // FileList object
                 
                 let file = null;
-                let data = [['','','']];
                 for (let i = 0; file = files[i]; i++) {
                     let a01 = await libA01.open(file);
                     
                     console.dir(a01);
-                    
-                    await a01.readPPC((data) => {
+
+                    await a01.StreamPPC((data) => {
                         console.log('hoba' + data);
                     }, 'DasPassword');
-
-                    data.push(['name', 'size', 'password']);
                 }
-
-                // Render DataTable
-                /*
-                var datatable = new gridjs.Grid({
-                    columns: ["FileName", "Evidence Count", "Password"],
-                    data: data,
-                });
-                */
-                //datatable.render(document.getElementById("datatable"));
             }
 
             // Drag Over Handler
