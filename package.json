@@ -1,5 +1,5 @@
 {
-  "name": "@binalyze/libA01",
+  "name": "@binalyze/a01",
   "version": "1.0.0",
   "main": "dist/libA01.js",
   "author": "emre@binalyze.com",
