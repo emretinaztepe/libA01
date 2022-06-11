@@ -7,7 +7,7 @@ LibA01 is a library for loading and processing A01 files directly in the browser
 * Supports terabyte sized files (streams PPC data)
 
 ## How to run? 
-### 1. Build it 
+### 1. Build it
 yarn install\
 yarn build\
 yarn serve

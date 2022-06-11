@@ -4,18 +4,18 @@ type OnData = (data: []) => void;
 class Streamer {
     public size:number;
     public initialized:boolean;
-    
+
     private onData:OnData;
 
-	constructor(onData:OnData) {
-		this.size = 0;
+    constructor(onData:OnData) {
+        this.size = 0;
         this.initialized = false;
         this.onData = onData;
-	}
+    }
 
-	public init() {
-		this.initialized = true;
-	}
+    public init() {
+        this.initialized = true;
+    }
 
     public writeUint8Array(data: []){
         this.size += data.length;
