@@ -1,5 +1,5 @@
 # Lib A01
-LibA01 is a PoC project for simplifying A01 processing.
+LibA01 is a library for loading and processing A01 files directly in the browser.
 
 # How to run? 
 yarn install
