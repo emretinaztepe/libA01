@@ -2,15 +2,16 @@
 LibA01 is a library for loading and processing A01 files directly in the browser.
 
 # How to run? 
+
 ## 1. Build it 
 yarn install
 yarn build 
 yarn serve
 ## 2. Test with sample data
-Navigate to http://localhost:8080
-Open Chrome Dev Tools Console
-Open test_data folder 
-Drap and drop sample files to Drop Zone
+Navigate to http://localhost:8080\
+Open Chrome Dev Tools Console\
+Open test_data folder\
+Drap and drop sample files to Drop Zone\
 
 # A01 Format Metadata 
 Format: A01
