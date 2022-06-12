@@ -4,7 +4,6 @@ declare class LibA01 {
     constructor();
     open(file: File): Promise<A01>;
     private load;
-    private findPPC;
     private readMetadataRaw;
     private sanitizeMetadata;
 }

@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>SigSauer Playground</title>
+        <title>A01 Playground</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Scripts -->
@@ -63,15 +63,24 @@
                 let file = null;
                 for (let i = 0; file = files[i]; i++) {
                     let a01 = await lib.open(file);
-                    console.log(a01);
-                    
+                    if (a01 == null) {
+                        console.error("Failed to open file");
+                        continue;
+                    }
+
                     let password = '';
                     if (a01.IsPasswordProtected()) {
                         password = prompt("Enter Password", "DasPassword");
                     }
 
-                    await a01.StreamPPC((data) => {
-                        console.log('chunk receveid');
+                    await a01.EnumFiles((index, entry) => {
+                        console.log(index, entry.filename);
+                    });
+
+                    console.log("Total: " + await a01.GetFileCount());
+                    
+                    await a01.StreamFile("Case.ppc", (data, size, total) => {
+                        console.log(`Chunk %${size/total*100} (${size}/${total}): ` + data);
                     }, password);
                 }
             }

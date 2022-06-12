@@ -13,9 +13,7 @@ class LibA01 {
     private logger: ILogger = null;
 
     constructor() {
-
         this.logger = container.get<ILogger>(DI.ILogger);
-
         this.logger.debug(`LibA01 successfully created`);
     }
 
@@ -26,10 +24,10 @@ class LibA01 {
      */
     public async open(file:File): Promise<A01> {
         try {
-        return await this.load(file);
+            return await this.load(file);
         } catch(e) {
-        this.logger.error(e);
-        return null;
+            this.logger.error(e);
+            return null;
         }
     }
 
@@ -43,34 +41,11 @@ class LibA01 {
         // Deserialize to dictionary and convert to A01
         let dict:any = yaml.load(metadata);
 
-        // Read PPC file
-        let ppc:Entry = await this.findPPC(file);
-        if (ppc === null) {
-            throw new Error('PPC file not found. Please check the file format.');
-        }
-
-        // Set reader function
-        // IMPORTANT: Otherwise causes a compile time error (due to dictionary convention on zip-entry.js)
-        let ppcReader = (ppc as any)['getData'] as Function;
-        if (ppcReader === undefined) {
-            throw new Error('PPC getData is undefined. This could be a corrupted zip entry.');
-        }
+        // Create a reader
+        let blobReader:BlobReader = new BlobReader(file as Blob);
+        let zipReader:ZipReader = new ZipReader(blobReader);
         
-        return new A01(dict.Type, dict.ID, dict.Tool, dict.Encryption, dict.PasswordProtected, ppcReader);
-    }
-
-    private async findPPC(file:File): Promise<Entry> {
-        let reader:BlobReader = new BlobReader(file as Blob);
-        let zipFile:ZipReader = new ZipReader(reader);
-        // Iterate until we find the PPC file
-        const iter = zipFile.getEntriesGenerator();
-        for(let curr = iter.next(); !(await curr).done; curr = iter.next()) {
-            let zipEntry = (await curr).value as any;
-            if (zipEntry.filename === Constants.CASE_PPC_FILENAME) {
-                return zipEntry;
-            }
-        }
-        return null;
+        return new A01(dict.Type, dict.ID, dict.Tool, dict.Encryption, dict.PasswordProtected, zipReader);
     }
 
     private async readMetadataRaw(file:File): Promise<string> {

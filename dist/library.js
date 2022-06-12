@@ -28,27 +28,9 @@ class LibA01 {
             throw new Error('A01 metadata not found. Are you sure this is an A01 file?');
         }
         let dict = yaml.load(metadata);
-        let ppc = await this.findPPC(file);
-        if (ppc === null) {
-            throw new Error('PPC file not found. Please check the file format.');
-        }
-        let ppcReader = ppc['getData'];
-        if (ppcReader === undefined) {
-            throw new Error('PPC getData is undefined. This could be a corrupted zip entry.');
-        }
-        return new a01_1.A01(dict.Type, dict.ID, dict.Tool, dict.Encryption, dict.PasswordProtected, ppcReader);
-    }
-    async findPPC(file) {
-        let reader = new zip_js_1.BlobReader(file);
-        let zipFile = new zip_js_1.ZipReader(reader);
-        const iter = zipFile.getEntriesGenerator();
-        for (let curr = iter.next(); !(await curr).done; curr = iter.next()) {
-            let zipEntry = (await curr).value;
-            if (zipEntry.filename === Constants.CASE_PPC_FILENAME) {
-                return zipEntry;
-            }
-        }
-        return null;
+        let blobReader = new zip_js_1.BlobReader(file);
+        let zipReader = new zip_js_1.ZipReader(blobReader);
+        return new a01_1.A01(dict.Type, dict.ID, dict.Tool, dict.Encryption, dict.PasswordProtected, zipReader);
     }
     async readMetadataRaw(file) {
         let pos;

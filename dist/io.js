@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Streamer = void 0;
 class Streamer {
-    constructor(onData) {
+    constructor(onData, totalSize) {
         this.size = 0;
+        this.totalSize = totalSize;
         this.initialized = false;
         this.onData = onData;
     }
@@ -12,7 +13,7 @@ class Streamer {
     }
     writeUint8Array(data) {
         this.size += data.length;
-        this.onData(data);
+        this.onData(data, this.size, this.totalSize);
     }
     getData() { }
 }
