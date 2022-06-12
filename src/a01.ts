@@ -17,8 +17,7 @@ enum Encryption {
 }
 
 /**
- * Callback for when a file is enumerated.
- * Returning false terminates the enumeration.
+ * Callback for when a file is enumerated
  * @param {number} index
  * @param {string} entry ZipEntry 
  */
