@@ -200,23 +200,22 @@ class A01 {
         if (this.Encryption == Encryption.None) {
             // Plain zip file
             return password;
-        } else {
-            // Encrypted
-            switch (this.Type) {
-                case Type.Standard:
-                    // Standard collection with Agent
-                    // User already provided a password so we don't need to generate one
-                    return password;
-                case Type.OffNetwork:
-                    // Off-network collection
-                    if (this.PasswordProtected) {
-                        return sha256(password + Constants.A01_SALT);
-                    } else {
-                        return sha256(this.ID + Constants.A01_SALT);
-                    }
-                default:
-                    throw new Error(`Unknown type: ${this.Type}`);
-            }
+        }
+        // Encrypted
+        switch (this.Type) {
+            case Type.Standard:
+                // Standard collection with Agent
+                // User already provided a password so we don't need to generate one
+                return password;
+            case Type.OffNetwork:
+                // Off-network collection
+                if (this.PasswordProtected) {
+                    return sha256(password + Constants.A01_SALT);
+                } else {
+                    return sha256(this.ID + Constants.A01_SALT);
+                }
+            default:
+                throw new Error(`Unknown type: ${this.Type}`);
         }
     }
 
